@@ -1,0 +1,266 @@
+:root {
+  --bg: #0f1115;
+  --panel: #171a21;
+  --panel-alt: #1f232c;
+  --border: #2a2f3a;
+  --text: #e8eaf0;
+  --text-dim: #9aa2b1;
+  --accent: #6c8cff;
+  --accent-dim: #3d4a7a;
+  --radius: 10px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 14px 24px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.brand { font-weight: 700; font-size: 1.2rem; letter-spacing: 0.3px; }
+
+.tabs { display: flex; gap: 6px; flex: 1; }
+
+.tab-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  padding: 8px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.tab-btn:hover { color: var(--text); }
+
+.tab-btn.active {
+  background: var(--accent-dim);
+  color: var(--text);
+}
+
+.upload-btn {
+  background: var(--accent);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.upload-btn:hover { filter: brightness(1.08); }
+
+.status {
+  background: var(--panel-alt);
+  border-bottom: 1px solid var(--border);
+  color: var(--text-dim);
+  padding: 8px 24px;
+  font-size: 0.85rem;
+}
+
+.status.hidden { display: none; }
+
+main { padding: 24px; }
+
+.view { display: none; }
+.view.active { display: block; }
+
+.empty {
+  color: var(--text-dim);
+  text-align: center;
+  padding: 60px 20px;
+  font-size: 1rem;
+}
+
+.empty.hidden { display: none; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 14px;
+}
+
+.photo-card {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  aspect-ratio: 1;
+  background: var(--panel-alt);
+  border: 1px solid var(--border);
+}
+
+.photo-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.photo-card .badge {
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+.photo-card .processing-spinner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15,17,21,0.45);
+  color: white;
+  font-size: 0.75rem;
+}
+
+.people-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+
+.person-card {
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--panel-alt);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+.person-card .thumb-wrap {
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: #000;
+}
+
+.person-card canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.person-card .person-name {
+  margin-top: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0 8px;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  text-align: center;
+  width: 100%;
+}
+
+.person-card .person-name::placeholder { color: var(--text-dim); }
+
+.person-card .person-count {
+  color: var(--text-dim);
+  font-size: 0.78rem;
+}
+
+.back-btn {
+  background: var(--panel-alt);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 16px;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal.hidden { display: none; }
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+  position: relative;
+  background: var(--panel);
+  border-radius: var(--radius);
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: auto;
+  padding: 20px;
+  z-index: 1;
+}
+
+.modal-close {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+.modal-image-wrap { position: relative; max-width: 80vw; }
+
+.modal-image-wrap img { max-width: 100%; max-height: 70vh; display: block; border-radius: 6px; }
+
+#modalOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.modal-faces {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.face-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--panel-alt);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 4px 10px 4px 4px;
+}
+
+.face-chip canvas {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.face-chip span { font-size: 0.85rem; }
